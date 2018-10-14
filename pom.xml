@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jancur.sbdemo</groupId>
+    <artifactId>demo-service-parent</artifactId>
+    <name>Demo Service Parent</name>
+    <version>${revision}</version>
+
+    <properties>
+        <!-- Set the major.minor.patch version here.  The CI/CD pipeline will replace -SNAPSHOT with a build number -->
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <!-- Docker settings -->
+        <!--<docker.registry>quay.io</docker.registry>-->
+        <!--<docker.namespace>nord-store-eng</docker.namespace>-->
+        <!--<docker.image.name>infor-loyalty-adapter</docker.image.name>-->
+        <!--<docker.image.fqn>${docker.registry}/${docker.namespace}/${docker.image.name}:${project.version}-->
+        <!--</docker.image.fqn>-->
+
+        <!-- Exclude Model classes from code coverage as a temporary workaround for https://github.com/jacoco/jacoco/issues/15
+        These model classes have no logic but include generated branch/conditional clauses that we want excluded
+        from coverage reports. -->
+        <!--<sonar.coverage.exclusions>**/model/*.java</sonar.coverage.exclusions>-->
+
+        <!-- Plugin Versions -->
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <flatten-maven-plugin.version>1.0.1</flatten-maven-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>app</module>
+        <!--<module>docker</module>-->
+        <!-- the kubernetes module is not added since the CI pipeline is the primary user.  It can be run on-demand. -->
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Enable building submodules independently https://maven.apache.org/maven-ci-friendly.html#Install__Deploy -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>forge-releases</id>
+            <name>Sonatype Forge Releases</name>
+            <url>http://repository.sonatype.org/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>forge-snapshots</id>
+            <name>Sonatype Forge Snapshot</name>
+            <url>http://repository.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>springboot-demo-service-it</artifactId>
+  <packaging>pom</packaging>
+  <name>SpringBoot Demo Service Test Scripts</name>
+  <description>Module for SoapUI scripts and related artifacts</description>
+
+  <!-- Add a dependency in re-deploy, and build steps there to automate deployment of these contents -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <soapui.version>4.6.2</soapui.version>
+  </properties>
+  <profiles>
+    <profile>
+      <id>soaptest</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.smartbear.soapui</groupId>
+            <artifactId>soapui-pro-maven-plugin</artifactId>
+            <version>${soapui.version}</version>
+            <configuration>
+              <projectFile>${project.basedir}/soapUI-project.xml</projectFile>
+              <testFailIgnore>false</testFailIgnore>
+              <junitReport>true</junitReport>
+              <exportAll>true</exportAll>
+              <outputFolder>${project.basedir}/reports</outputFolder>
+              <soapuiProperties>
+                <property>
+                  <name>soapui.scripting.library</name>
+                  <value>${project.basedir}</value>
+                </property>
+                <property>
+                  <name>soapui.ext.libraries</name>
+                  <value>${project.basedir}/scripts/jar</value>
+                </property>
+              </soapuiProperties>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>eviware</groupId>
+                <artifactId>maven-soapui-pro-plugin</artifactId>
+                <version>4.5.1</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <id>run-soap-integration-test</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
