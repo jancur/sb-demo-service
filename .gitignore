@@ -1,0 +1,38 @@
+java specific
+*.class
+/target/
+.settings/
+.metadata/
+**/generated
+.springBeans
+.factorypath
+
+#netbeans ignore personal stuff
+nbproject/private/
+
+#Eclipse generated files
+**/.classpath
+**/.project
+**/.recommenders
+**/Servers
+
+#gradle files
+**/.gradle
+**/build
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+**/.checkstyle
+*dependency-reduced-pom.xml
+*.log
+
+cmbuild/dist/
+target/
+bin/
+
+application-local.properties
+
