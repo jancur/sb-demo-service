@@ -1,16 +1,31 @@
-java specific
+# Created by .ignore support plugin (hsz.mobi)
+## java specific
 *.class
-/target/
+target/
 .settings/
 .metadata/
 **/generated
 .springBeans
 .factorypath
+/classes/
+**inforoutput
+.flattened-pom.xml
+
+# Package Files #
+*.jar
+*.war
+*.ear
 
 #netbeans ignore personal stuff
 nbproject/private/
 
-#Eclipse generated files
+#IntelliJ files
+**/.idea
+*.iml
+*.ipr
+*.iws
+
+#Eclipse files
 **/.classpath
 **/.project
 **/.recommenders
@@ -19,6 +34,7 @@ nbproject/private/
 #gradle files
 **/.gradle
 **/build
+**/out
 
 ## generic files to ignore
 *~
@@ -29,10 +45,48 @@ nbproject/private/
 **/.checkstyle
 *dependency-reduced-pom.xml
 *.log
+application-local.yml
+**/release
 
-cmbuild/dist/
-target/
-bin/
+# Ignore Gradle GUI config
+gradle-app.setting
 
-application-local.properties
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
 
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+### OSX template
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+output.xml
+logs
+-1.xml
+stores
+Makefile
